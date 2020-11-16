@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
+[RequireComponent(typeof(Image))]
 
 public class GazeableButton : GazeableObject
 {
@@ -16,8 +19,15 @@ public class GazeableButton : GazeableObject
         
     }
 
-    public void SetButtonColor(Color buttonColor) 
+public void SetButtonColor(Color buttonColor)
     {
+        GetComponent<Image>().color = buttonColor;
+    }
 
+    public override void OnPress(RaycastHit hitInfo)
+    {
+        base.OnPress(hitInfo);
+
+        //SetActiveButton(Color.green); 
     }
 }
