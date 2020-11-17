@@ -7,10 +7,12 @@ using UnityEngine.UI;
 
 public class GazeableButton : GazeableObject
 {
+
+    protected VRCanvas parentPanel;
     // Start is called before the first frame update
     void Start()
     {
-        
+        parentPanel = GetComponentInParent<VRCanvas>();
     }
 
     // Update is called once per frame
@@ -19,15 +21,23 @@ public class GazeableButton : GazeableObject
         
     }
 
-public void SetButtonColor(Color buttonColor)
+    public void SetButtonColor(Color buttonColor)
     {
         GetComponent<Image>().color = buttonColor;
     }
 
+   
     public override void OnPress(RaycastHit hitInfo)
     {
         base.OnPress(hitInfo);
 
-        //SetActiveButton(Color.green); 
+        if(parentPanel != null)
+        {
+            parentPanel.SetActiveButton(this);
+        }
+        else
+        {
+            Debug.LogError("Button not a child of object with VRpanel component", this);
+        }
     }
 }

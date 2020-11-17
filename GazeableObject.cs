@@ -5,7 +5,7 @@ using UnityEngine;
 public class GazeableObject : MonoBehaviour
 { 
   // virtual allows the function to be modified by a derived class
- public virtual void OnGazeEnter(RaycastHit hitInfo){
+    public virtual void OnGazeEnter(RaycastHit hitInfo){
         Debug.Log("Gaze entered on " + gameObject.name);
     }
 
