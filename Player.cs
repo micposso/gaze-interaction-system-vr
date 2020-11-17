@@ -20,6 +20,9 @@ public class Player : MonoBehaviour
     public InputMode activeMode = InputMode.NONE;
     // Start is called before the first frame update
 
+    [SerializeField]
+    private float playerSpeed = 3.0f;
+
     // runs when the gameobject appears on the scene before start
     void Awake() 
     {
@@ -39,6 +42,17 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+      TryWalk();  
+    }
+
+    public void TryWalk()
+    {
+        if (Input.GetMouseButton(0) && activeMode == InputMode.WALK)
+        {
+            Vector3 forward = Camera.main.transform.forward;
+
+            Vector3 newPosition = transform.position + forward * Time.deltaTime * playerSpeed;
+
+        }
     }
 }
