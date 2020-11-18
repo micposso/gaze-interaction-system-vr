@@ -8,7 +8,9 @@ public enum InputMode
 {
     NONE,
     TELEPORT,
-    WALK
+    WALK,
+    STEPS,
+    TELEPORTSPOT
 }
 
 public class Player : MonoBehaviour
@@ -16,6 +18,8 @@ public class Player : MonoBehaviour
     // singleton design pattern. only one instance of the class. allow the class to be accessed from anywhere in the code
 
     public static Player instance;
+
+    public GameObject teleport;
 
     public InputMode activeMode = InputMode.NONE;
     // Start is called before the first frame update
@@ -42,17 +46,36 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      TryWalk();  
+      TryWalk();
+      TryStep();
     }
 
     public void TryWalk()
     {
         if (Input.GetMouseButton(0) && activeMode == InputMode.WALK)
         {
+            print("walking");
             Vector3 forward = Camera.main.transform.forward;
 
             Vector3 newPosition = transform.position + forward * Time.deltaTime * playerSpeed;
 
+            transform.position = newPosition;
+
         }
     }
+
+    public void TryStep()
+    {
+        if (Input.GetMouseButton(0) && activeMode == InputMode.STEPS)
+        {
+            print("steps");
+            Vector3 forward = Camera.main.transform.forward / 3;
+            print(forward);
+            Vector3 newPosition = transform.position + forward;
+
+            transform.position = newPosition;
+
+        }
+    }
+
 }
